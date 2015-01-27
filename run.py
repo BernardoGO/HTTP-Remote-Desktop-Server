@@ -4,6 +4,12 @@ import mimetypes
 import urlparse
 import gtk.gdk
 from BaseHTTPServer import BaseHTTPRequestHandler
+import pyautogui
+
+IP = "191.185.252.164"
+PORT = 9010
+SCR_X = 1600
+SCR_Y = 900
 
 def take_ss():
     
@@ -24,7 +30,7 @@ def take_ss():
 def read(self, filename, getNpost):
     try:
         if len(filename) < 2:
-            filename = "screenshot.png"
+            filename = "index.html"
         filepath = filename
         #allow = pathManager.verify_all(filepath)
         #if allow == False:
@@ -33,18 +39,35 @@ def read(self, filename, getNpost):
         file_handler = open(filepath.replace("/", ""), 'rb')
 
         response = file_handler.read()
+        response = response.replace("[IP]", IP ).replace("[PORT]", str(PORT) ).replace("[SCR_X]", str(SCR_X) ).replace("[SCR_Y]", str(SCR_Y) )
         #response = pythonCore.replaceAll(self, response, getNpost)
         return [200, response]
     except Exception as e:
         return [404, 'Not Found' + str(e)]
 
+epoch = ""
 
-def do_GET(self):
+def do_GET2(self):
     #execfile('takess.py')
 
     parsed_path = urlparse.urlparse(self.path)
     #sessionId = sessionManager.startSession(self)
     par = urlparse.parse_qs(urlparse.urlparse(self.path).query)
+    set = False
+    global epoch
+    try:
+        print par['mouse_x']
+        print par['mouse_y']
+        if epoch != par['epoch']:
+            set = True
+    except:
+        pass
+
+    if set == True:
+        #pyautogui.moveTo(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
+        pyautogui.click(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
+        epoch = par['epoch']
+
     response = read(self, parsed_path.path, [par, None])
     self.send_response(response[0])
     #self.send_header('Set-Cookie', cookieHandler.WriteCookie(self, config.__SESSION_COOKIE_NAME__, sessionId))
@@ -55,11 +78,11 @@ def do_GET(self):
 class requestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         #pass
-        do_GET(self)
+        do_GET2(self)
 
 
 
-server = HTTPServer(("127.0.0.1", 8010), requestHandler)
+server = HTTPServer(("", PORT), requestHandler)
 
 print 'Starting server, use <Ctrl-C> to stop'
 server.serve_forever()

@@ -1,0 +1,25 @@
+<html>
+<head>
+<script language="JavaScript">
+function point_it(event){
+	pos_x = event.offsetX?(event.offsetX):event.pageX-document.getElementById("pointer_div").offsetLeft;
+	pos_y = event.offsetY?(event.offsetY):event.pageY-document.getElementById("pointer_div").offsetTop;
+	document.getElementById("cross").style.left = (pos_x-1) ;
+	document.getElementById("cross").style.top = (pos_y-15) ;
+	document.getElementById("cross").style.visibility = "visible" ;
+	//document.pointform.form_x.value = pos_x;
+	//document.pointform.form_y.value = pos_y;
+	var milliseconds = (new Date).getTime();
+	window.location.href = "http://[IP]:[PORT]/index.html?mouse_x="+pos_x+"&mouse_y="+pos_y+ "&epoch="+milliseconds;
+}
+
+</script>
+</head>
+<body>
+    <form name="pointform" method="post">
+        <div id="pointer_div" onclick="point_it(event)" style = "background-image:url('screenshot.png');width:[SCR_X]px;height:[SCR_Y]px;">
+        <img src="point.gif" id="cross" style="position:relative;visibility:hidden;z-index:2;"></div>
+
+    </form>
+</body>
+</html>

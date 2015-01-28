@@ -39,7 +39,7 @@ def read(self, filename, getNpost):
         file_handler = open(filepath.replace("/", ""), 'rb')
 
         response = file_handler.read()
-        response = response.replace("[IP]", IP ).replace("[PORT]", str(PORT) ).replace("[SCR_X]", str(SCR_X) ).replace("[SCR_Y]", str(SCR_Y) )
+        response = response.replace("[IP]", str(self.headers.getheader('host')).split(':')[0] ).replace("[PORT]", str(PORT) ).replace("[SCR_X]", str(SCR_X) ).replace("[SCR_Y]", str(SCR_Y) )
         #response = pythonCore.replaceAll(self, response, getNpost)
         return [200, response]
     except Exception as e:
@@ -49,7 +49,9 @@ epoch = ""
 
 def do_GET2(self):
     #execfile('takess.py')
+    print self.path
 
+    #print " add:"+ str(self.headers.getheader('host'))
     parsed_path = urlparse.urlparse(self.path)
     #sessionId = sessionManager.startSession(self)
     par = urlparse.parse_qs(urlparse.urlparse(self.path).query)

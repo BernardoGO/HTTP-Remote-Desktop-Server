@@ -2,6 +2,10 @@
 ###Lightweight and simple remote desktop server designed to use a WEB browser as client
 ==================
 
+
+## Screenshot
+![](http://i58.tinypic.com/23kpxdd.png)
+
 ## Usage
 ```bash
 python run.py

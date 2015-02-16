@@ -1,13 +1,13 @@
 <html>
 <head>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="scripts.js" language="JavaScript"></script>
 </head>
-<body>
+<body onkeypress="return myKeyPress(event)">
     <form name="pointform" method="post">
         <div id="pointer_div" onclick="point_it(event)" style = "background-image:url('screenshot.png');width:[SCR_X]px;height:[SCR_Y]px;">
         <img src="point.gif" id="cross" style="position:relative;visibility:hidden;z-index:2;"></div>
-
+        <input type="text"  onkeypress="return myKeyPress(event)"/>
     </form>
 </body>
 </html>

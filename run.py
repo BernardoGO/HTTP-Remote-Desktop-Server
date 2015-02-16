@@ -76,6 +76,7 @@ def do_GET2(self):
     try:
         if set == True:
             #pyautogui.moveTo(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
+            print "KEYSS" + par['key'][0]
             pyautogui.keyDown(par['key'][0])
             epoch = par['epoch']
     except:

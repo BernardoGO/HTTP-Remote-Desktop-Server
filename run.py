@@ -58,17 +58,29 @@ def do_GET2(self):
     set = False
     global epoch
     try:
-        print par['mouse_x']
-        print par['mouse_y']
+        #print par['mouse_x']
+        #print par['mouse_y']
         if epoch != par['epoch']:
             set = True
     except:
         pass
 
-    if set == True:
-        #pyautogui.moveTo(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
-        pyautogui.click(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
-        epoch = par['epoch']
+    try:
+        if set == True:
+            #pyautogui.moveTo(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
+            pyautogui.click(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
+            epoch = par['epoch']
+    except:
+        pass
+
+    try:
+        if set == True:
+            #pyautogui.moveTo(int(par['mouse_x'][0]), int(par['mouse_y'][0]))
+            pyautogui.keyDown(par['key'][0])
+            epoch = par['epoch']
+    except:
+        pass
+
 
     response = read(self, parsed_path.path, [par, None])
     self.send_response(response[0])

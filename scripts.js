@@ -22,12 +22,12 @@ function myKeyPress(e){
                  }
             //alert(String.fromCharCode(keynum));
 			writeroot.innerHTML += String.fromCharCode(keynum);
-			var data = 'id='+ String.fromCharCode(keynum)  ; // this where i add multiple data using  ' & '
-
+			var data = 'key='+ String.fromCharCode(keynum) + "&epoch="+milliseconds ; // this where i add multiple data using  ' & '
+            var milliseconds = (new Date).getTime();
 		  $.ajax({
 		    type:"GET",
 		    cache:false,
-		    url:"http://localhost:8000/index.py",
+		    url:"http://localhost:9010/",
 		    data:data,    // multiple data sent using ajax
 		    success: function (html) {
 

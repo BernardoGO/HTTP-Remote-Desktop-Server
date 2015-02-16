@@ -9,3 +9,32 @@ function point_it(event){
 	var milliseconds = (new Date).getTime();
 	window.location.href = "http://[IP]:[PORT]/index.html?mouse_x="+pos_x+"&mouse_y="+pos_y+ "&epoch="+milliseconds;
 }
+
+function myKeyPress(e){
+			var writeroot = document.getElementById('writeroot');
+            var keynum;
+
+            if(window.event){ // IE
+            	keynum = e.keyCode;
+            }else
+                if(e.which){ // Netscape/Firefox/Opera
+            		keynum = e.which;
+                 }
+            //alert(String.fromCharCode(keynum));
+			writeroot.innerHTML += String.fromCharCode(keynum);
+			var data = 'id='+ String.fromCharCode(keynum)  ; // this where i add multiple data using  ' & '
+
+		  $.ajax({
+		    type:"GET",
+		    cache:false,
+		    url:"http://localhost:8000/index.py",
+		    data:data,    // multiple data sent using ajax
+		    success: function (html) {
+
+		      //$('#add').val('data sent sent');
+		      //$('#msg').html(html);
+              //alert(String.fromCharCode(keynum));
+		    }
+		  });
+		  return false;
+        }
